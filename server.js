@@ -1,33 +1,25 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const XLSX = require('xlsx');
-const fs = require('fs');
 
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 
-app.use(bodyParser.json());
-app.use(express.static('public'));
+let raceData = [];  // Array untuk menyimpan data Excel sementara di memori
 
-// Route untuk mengunggah file Excel dan menyimpan data sebagai JSON
+// Route untuk mengunggah file Excel dan menyimpan data di memori
 app.post('/upload', upload.single('file'), (req, res) => {
-  const file = req.file;
-  const workbook = XLSX.readFile(file.path);
+  const workbook = XLSX.read(req.file.buffer);
   const sheetName = workbook.SheetNames[0];
-  const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
-
-  fs.writeFileSync('data/race-data.json', JSON.stringify(sheetData));
-
-  res.send('File uploaded and data saved.');
+  raceData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
+  res.send('File uploaded and data saved in memory.');
 });
 
 // Route untuk mendapatkan hasil balapan berdasarkan nomor BIB
 app.get('/result/:bibNumber', (req, res) => {
   const bibNumber = req.params.bibNumber;
-  const data = JSON.parse(fs.readFileSync('data/race-data.json'));
+  const result = raceData.find(row => row[0] == bibNumber);
 
-  const result = data.find(row => row[0] == bibNumber);
   if (result) {
     res.json({
       name: result[1],  // Nama pelari
