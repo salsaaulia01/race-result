@@ -5,12 +5,10 @@ const XLSX = require('xlsx');
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-let raceData = [];  // Array untuk menyimpan data Excel sementara di memori
+// Middleware untuk melayani file statis dari folder "public"
+app.use(express.static('public'));
 
-// Route untuk root path
-app.get('/', (req, res) => {
-  res.send('Welcome to the Race Result API!');
-});
+let raceData = [];  // Array untuk menyimpan data Excel sementara di memori
 
 // Route untuk mengunggah file Excel dan menyimpan data di memori
 app.post('/upload', upload.single('file'), (req, res) => {
