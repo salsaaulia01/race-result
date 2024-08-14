@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <form id="uploadForm" enctype="multipart/form-data" style="display: none;">
+            <label for="upload" class="custom-file-upload">Choose File</label>
+            <input type="file" name="file" id="upload" />
+            <button type="submit" class="upload-btn">Upload</button>
+        </form>
+        <div class="search-box">
+            <input type="text" id="bibNumber" placeholder="Enter Bib Number" />
+            <button type="button" onclick="searchResult()">Search</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

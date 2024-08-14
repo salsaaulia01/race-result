@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Result</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="result-container">
+        <div class="result-card" id="result"></div>
+    </div>
+
+    <script>
+        function getQueryVariable(variable) {
+            const query = window.location.search.substring(1);
+            const vars = query.split('&');
+            for (let i = 0; i < vars.length; i++) {
+                const pair = vars[i].split('=');
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+            return false;
+        }
+
+        const bibNumber = getQueryVariable('bib');
+        fetch(`/result/${bibNumber}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('result');
+            if (data) {
+                let result = '';
+                result += '<h2>' + data.name + ' (#' + bibNumber + ')</h2>';
+                result += '<p><strong>Pace:</strong> ' + data.pace + '</p>';
+                result += '<p><strong>Time:</strong> ' + excelTimeToHMS(data.time) + '</p>';
+                resultDiv.innerHTML = result;
+            } else {
+                resultDiv.innerHTML = '<p>No data available. Please upload the Excel file first.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        function excelTimeToHMS(time) {
+            const totalSeconds = Math.floor(time * 24 * 60 * 60);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            return [
+                hours.toString().padStart(2, '0'),
+                minutes.toString().padStart(2, '0'),
+                seconds.toString().padStart(2, '0')
+            ].join(':');
+        }
+
+        // Redirect back to the search page after 15 seconds
+        setTimeout(() => {
+            window.location.href = "index.html?uploaded=true";
+        }, 15000);
+    </script>
+</body>
+</html>

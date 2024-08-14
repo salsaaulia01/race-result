@@ -1,0 +1,99 @@
+/* General styles for the entire page */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('image.png') no-repeat center center fixed;
+  background-size: contain;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  text-align: center;
+}
+
+/* Container styling for the form and search elements */
+.container {
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* Centered file input styling */
+#upload {
+  display: none; /* Hide the default file input */
+}
+
+.custom-file-upload {
+  display: inline-block;
+  font-size: 1.1em;
+  color: #000;
+  cursor: pointer;
+  border: 2px solid #ff0000;
+  background-color: #ff0000;
+
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px; /* Space below Choose File button */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styling for the upload button */
+button.upload-btn {
+  margin-bottom: 20px; /* Space below Upload button */
+}
+.result-card h2 {
+  margin: 0;
+  font-size: 3.5em; /* Ukuran font besar untuk nama */
+  line-height: 1.2; /* Sesuaikan line height agar jarak antar baris lebih rapat */
+}
+
+.result-card p {
+  font-size: 2.5em; /* Ukuran font besar untuk hasil */
+  margin: 10px 0; /* Berikan jarak antar baris */
+  line-height: 1.2; /* Sesuaikan line height agar jarak antar baris lebih rapat */
+}
+
+/* Text input styling */
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #000;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* Button styling */
+button {
+  padding: 12px 20px;
+
+  border: 2px solid #ff0000;
+  border-radius: 5px;
+  background-color: #ff0000;
+
+  color: #000;
+  font-size: 1em;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect for buttons */
+button:hover, .custom-file-upload:hover {
+  background-color: #e60000;
+  color: #fff;
+}
+
+/* Additional styling to separate the search elements */
+.search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add space between the input and button */
+}
