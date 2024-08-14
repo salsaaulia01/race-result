@@ -7,6 +7,11 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 let raceData = [];  // Array untuk menyimpan data Excel sementara di memori
 
+// Route untuk root path
+app.get('/', (req, res) => {
+  res.send('Welcome to the Race Result API!');
+});
+
 // Route untuk mengunggah file Excel dan menyimpan data di memori
 app.post('/upload', upload.single('file'), (req, res) => {
   const workbook = XLSX.read(req.file.buffer);
